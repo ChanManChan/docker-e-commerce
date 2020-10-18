@@ -16,7 +16,9 @@ const LoginScreen = ({ location, history }) => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   React.useEffect(() => {
+    // if coming from Cart after login redirect to shipping (found in the URL string)
     if(userInfo) {
+      // history.push('/login?redirect=shipping')
       history.push(redirect)
     }
   }, [history, userInfo, redirect])

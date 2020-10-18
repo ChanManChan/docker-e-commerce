@@ -1,7 +1,9 @@
 import * as types from '../types'
 
 const CART_INITIAL_STATE = {
-  cartItems: []
+  cartItems: [],
+  shippingAddress: {},
+  paymentMethod: ''
 }
 
 export const cartReducer = (state = CART_INITIAL_STATE, action) => {
@@ -23,6 +25,16 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: state.cartItems.filter(x => x.productId !== action.payload)
+      }
+    case types.CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload
+      }
+    case types.CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload
       }
     default:
       return state
