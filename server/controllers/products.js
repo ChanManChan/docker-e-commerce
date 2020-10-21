@@ -4,8 +4,21 @@ const formidable = require('formidable');
 const fs = require('fs');
 
 exports.getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({})
-  res.json(products)
+  const pageSize = 10
+  const page = Number(req.query.pageNumber) || 1
+
+  const keyword = req.query.keyword ? {
+    name: {
+      $regex: req.query.keyword,
+      // options: 'i' <- case insensitive
+      $options: 'i'
+    }
+  }: {}
+
+  const count = await Product.countDocuments({ ...keyword })
+  const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 exports.getProductById = asyncHandler(async (req, res) => {
@@ -98,4 +111,43 @@ exports.createProduct = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('Product not found')
   }
+})
+
+exports.createProductReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body
+
+  const product = await Product.findById(req.params.id)
+
+  if (product) {
+    const alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString())
+    if(alreadyReviewed) {
+      res.status(400)
+      throw new Error('Product already reviewed')
+    }
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id
+    }
+
+    product.set({ reviews: [ ...product.reviews, review] })
+
+    product.set({
+      numReviews: product.reviews.length,
+      rating: (product.reviews.reduce((acc, item) => acc + item.rating, 0)) / product.reviews.length
+    })
+
+    await product.save()
+
+    res.status(201).json({ message: 'Review added' })
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
+  }
+})
+
+exports.getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3)
+  res.json(products)
 })

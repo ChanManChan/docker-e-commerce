@@ -72,7 +72,7 @@ export const orderPayReducer = (state = ORDER_PAY_INITIAL_STATE, action) => {
     case types.ORDER_PAY_FAIL:
       return { ...state, loading: false, error: action.payload }
     case types.ORDER_PAY_RESET:
-      return {}
+      return ORDER_PAY_INITIAL_STATE
     default:
       return state
   }
@@ -87,7 +87,7 @@ export const orderDeliverReducer = (state = ORDER_DELIVER_INITIAL_STATE, action)
     case types.ORDER_DELIVER_FAIL:
       return { ...state, loading: false, error: action.payload }
     case types.ORDER_DELIVER_RESET:
-      return { loading: false, success: false, error: null }
+      return ORDER_DELIVER_INITIAL_STATE
     default:
       return state
   }
@@ -102,7 +102,7 @@ export const listMyOrdersReducer = (state = MY_ORDER_LIST_INITIAL_STATE, action)
     case types.LIST_MY_ORDERS_FAIL:
       return { ...state, loading: false, error: action.payload }
     case types.LIST_MY_ORDERS_RESET:
-      return { loading: false, orders: [], error: null }
+      return MY_ORDER_LIST_INITIAL_STATE
     default:
       return state
   }

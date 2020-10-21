@@ -88,7 +88,7 @@ export const userDetailsReducer = (state = DETAILS_INITIAL_STATE, action) => {
     case types.USER_DETAILS_FAIL:
       return { ...state, loading: false, error: action.payload }
     case types.USER_DETAILS_RESET:
-      return { loading: false, user: {}, error: null }
+      return DETAILS_INITIAL_STATE
     default:
       return state
   }
@@ -116,7 +116,7 @@ export const userListReducer = (state = USER_LIST_INITIAL_STATE, action) => {
     case types.USER_LIST_FAIL:
       return { ...state, loading: false, error: action.payload }
     case types.USER_LIST_RESET:
-      return { users: [], loading: false, error: null }
+      return USER_LIST_INITIAL_STATE
     default:
       return state
   }
@@ -157,7 +157,7 @@ export const userUpdateReducer = (state = USER_UPDATE_INITIAL_STATE, action) => 
     case types.USER_UPDATE_FAIL:
       return { ...state, loading: false, error: action.payload }
     case types.USER_UPDATE_RESET:
-      return { loading: false, success: false, error: null }
+      return USER_UPDATE_INITIAL_STATE
     default:
       return state
   }
