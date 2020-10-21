@@ -1,20 +1,38 @@
 import { combineReducers } from 'redux'
 
-import { productListReducer, productDetailsReducer } from './product'
+import { productListReducer, productDetailsReducer, productDeleteReducer, productCreateReducer, productUpdateReducer } from './product'
 import { cartReducer } from './cart'
-import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from './user'
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, listMyOrdersReducer } from './order'
+import {
+  userDetailsReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateProfileReducer,
+  userListReducer,
+  userDeleteReducer,
+  userByIdReducer,
+  userUpdateReducer
+} from './user'
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer, listMyOrdersReducer, orderListReducer, orderDeliverReducer } from './order'
 
 export default combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userById: userByIdReducer,
+  userUpdate: userUpdateReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderList: orderListReducer,
   orderPay: orderPayReducer,
-  listMyOrders: listMyOrdersReducer
+  orderDeliver: orderDeliverReducer,
+  listMyOrders: listMyOrdersReducer,
 })

@@ -14,6 +14,11 @@ import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
+import UserListScreen from './screens/UserListScreen'
+import UserEditScreen from './screens/UserEditScreen'
+import ProductListScreen from './screens/ProductListScreen'
+import ProductEditScreen from './screens/ProductEditScreen'
+import OrderListScreen from './screens/OrderListScreen'
 
 function App() {
   return (
@@ -28,6 +33,11 @@ function App() {
           <Route path="/shipping" exact component={ShippingScreen} />
           <Route path="/payment" exact component={PaymentScreen} />
           <Route path="/placeorder" exact component={PlaceOrderScreen} />
+          <Route path="/admin/userlist" exact component={UserListScreen} />
+          <Route path="/admin/productlist" exact component={ProductListScreen} />
+          <Route path="/admin/orderlist" exact component={OrderListScreen} />
+          <Route path="/admin/product/:id/edit" exact component={ProductEditScreen} />
+          <Route path="/admin/user/:id/edit" exact component={UserEditScreen} />
           <Route path="/order/:id" exact component={OrderScreen} />
           <Route path="/product/:id" exact component={ProductScreen} />
           <Route path="/cart/:id?" exact component={CartScreen} />

@@ -25,6 +25,30 @@ const PROFILE_UPDATE_INITIAL_STATE = {
   error: null
 }
 
+const USER_LIST_INITIAL_STATE = {
+  loading: false,
+  error: null,
+  users: []
+}
+
+const USER_DELETE_INITIAL_STATE = {
+  loading: false,
+  error: null,
+  success: false
+}
+
+const USER_BY_ID_INITIAL_STATE = {
+  loading: false,
+  error: null,
+  user: {}
+}
+
+const USER_UPDATE_INITIAL_STATE = {
+  loading: false,
+  success: false,
+  error: null
+}
+
 export const userLoginReducer = (state = LOGIN_INITIAL_STATE, action) => {
   switch(action.type) {
     case types.USER_LOGIN_REQUEST:
@@ -78,6 +102,62 @@ export const userUpdateProfileReducer = (state = PROFILE_UPDATE_INITIAL_STATE, a
       return { ...state, loading: false, success: true, userInfo: action.payload }
     case types.USER_UPDATE_PROFILE_FAIL:
       return { ...state, loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userListReducer = (state = USER_LIST_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case types.USER_LIST_REQUEST:
+      return { ...state, loading: true }
+    case types.USER_LIST_SUCCESS:
+      return { ...state, loading: false, users: action.payload }
+    case types.USER_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    case types.USER_LIST_RESET:
+      return { users: [], loading: false, error: null }
+    default:
+      return state
+  }
+}
+
+export const userDeleteReducer = (state = USER_DELETE_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case types.USER_DELETE_REQUEST:
+      return { ...state, loading: true }
+    case types.USER_DELETE_SUCCESS:
+      return { ...state, loading: false, success: true }
+    case types.USER_DELETE_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userByIdReducer = (state = USER_BY_ID_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case types.USER_BY_ID_REQUEST:
+      return { ...state, loading: true }
+    case types.USER_BY_ID_SUCCESS:
+      return { ...state, loading: false, user: action.payload }
+    case types.USER_BY_ID_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userUpdateReducer = (state = USER_UPDATE_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case types.USER_UPDATE_REQUEST:
+      return { ...state, loading: true }
+    case types.USER_UPDATE_SUCCESS:
+      return { ...state, loading: false, success: true }
+    case types.USER_UPDATE_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    case types.USER_UPDATE_RESET:
+      return { loading: false, success: false, error: null }
     default:
       return state
   }

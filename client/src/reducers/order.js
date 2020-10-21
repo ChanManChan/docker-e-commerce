@@ -19,7 +19,19 @@ const ORDER_PAY_INITIAL_STATE = {
   error: null
 }
 
+const ORDER_DELIVER_INITIAL_STATE = {
+  loading: false,
+  success: false,
+  error: null
+}
+
 const MY_ORDER_LIST_INITIAL_STATE = {
+  loading: false,
+  orders: [],
+  error: null
+}
+
+const ORDER_LIST_INITIAL_STATE = {
   loading: false,
   orders: [],
   error: null
@@ -66,6 +78,21 @@ export const orderPayReducer = (state = ORDER_PAY_INITIAL_STATE, action) => {
   }
 }
 
+export const orderDeliverReducer = (state = ORDER_DELIVER_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case types.ORDER_DELIVER_REQUEST:
+      return { ...state, loading: true }
+    case types.ORDER_DELIVER_SUCCESS:
+      return { ...state, loading: false, success: true }
+    case types.ORDER_DELIVER_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    case types.ORDER_DELIVER_RESET:
+      return { loading: false, success: false, error: null }
+    default:
+      return state
+  }
+}
+
 export const listMyOrdersReducer = (state = MY_ORDER_LIST_INITIAL_STATE, action) => {
   switch(action.type) {
     case types.LIST_MY_ORDERS_REQUEST:
@@ -76,6 +103,19 @@ export const listMyOrdersReducer = (state = MY_ORDER_LIST_INITIAL_STATE, action)
       return { ...state, loading: false, error: action.payload }
     case types.LIST_MY_ORDERS_RESET:
       return { loading: false, orders: [], error: null }
+    default:
+      return state
+  }
+}
+
+export const orderListReducer = (state = ORDER_LIST_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case types.ORDER_LIST_REQUEST:
+      return { ...state, loading: true }
+    case types.ORDER_LIST_SUCCESS:
+      return { ...state, loading: false, orders: action.payload }
+    case types.ORDER_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload }
     default:
       return state
   }
